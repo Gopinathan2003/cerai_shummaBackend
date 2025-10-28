@@ -4,7 +4,7 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse
 from typing import Optional
 from jose import jwt, JWTError
-from config import loggers
+from config.settings import settings
 
 
 class AuthMiddleware(BaseHTTPMiddleware):
@@ -36,7 +36,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
                 return JSONResponse({"detail": "Unauthorized"}, status_code=401)
 
         try:
-            payload = jwt.decode(token, loggers.SECRET_KEY, algorithms=[loggers.ALGORITHM])
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
             request.state.user = payload
         except JWTError:
             return JSONResponse({"detail": "Invalid or expired token"}, status_code=401)

@@ -2,9 +2,9 @@ from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 from sqlalchemy_utils import ChoiceType
-from database.database import Base
+import uuid
 
-
+Base = declarative_base()
 
 
 class Users(Base):
